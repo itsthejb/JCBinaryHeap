@@ -1,14 +1,14 @@
 //
-//  JCHeap.m
-//  Merging
+//  JCBinaryHeap.m
+//  JCBinaryHeap
 //
-//  Created by jc on 07/12/14.
-//  Copyright (c) 2014 jc. All rights reserved.
+//  Created by Jonathan Crooke on 7/12/2014.
+//  Copyright (c) 2014 Jonathan Crooke. All rights reserved.
 //
 
-#import "JCHeap.h"
+#import "JCBinaryHeap.h"
 
-@interface JCHeap () {
+@interface JCBinaryHeap () {
 	CFBinaryHeapRef _heap;
 }
 @property (copy) NSComparator comparator;
@@ -28,11 +28,11 @@ static CFStringRef _jc_heap_copyDescriptionCallback(const void *ptr) {
 }
 
 static CFComparisonResult _jc_heapCompareCallback(const void *ptr1, const void *ptr2, void *context) {
-	JCHeap *heap = (__bridge JCHeap *)(context);
+	JCBinaryHeap *heap = (__bridge JCBinaryHeap *)(context);
 	return (CFComparisonResult) heap.comparator((__bridge id)(ptr1), (__bridge id)(ptr2));
 }
 
-@implementation JCHeap
+@implementation JCBinaryHeap
 
 - (instancetype) initWithComparator:(NSComparator) comparator
 {
