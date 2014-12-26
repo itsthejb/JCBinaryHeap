@@ -18,27 +18,27 @@ extern NSComparator JCBinaryHeapCompareSelectorReverseComparator;
 
 + (instancetype)binaryHeapWithComparator:(NSComparator) comparator;
 + (instancetype)binaryHeapWithObject:(id)anObject
-													comparator:(NSComparator) comparator;
+                          comparator:(NSComparator) comparator;
 + (instancetype)binaryHeapWithObjects:(const id [])objects
-																count:(NSUInteger)cnt
-													 comparator:(NSComparator) comparator;
+                                count:(NSUInteger)cnt
+                           comparator:(NSComparator) comparator;
 + (instancetype)binaryHeapWithComparator:(NSComparator) comparator
-																 objects:(id)anObject, ... NS_REQUIRES_NIL_TERMINATION;
+                                 objects:(id)anObject, ... NS_REQUIRES_NIL_TERMINATION;
 + (instancetype)binaryHeapWithArray:(NSArray *)array
-												 comparator:(NSComparator) comparator;
+                         comparator:(NSComparator) comparator;
 
 - (instancetype)initWithComparator:(NSComparator) comparator; /* designated initializer */
 - (instancetype)initWithObjects:(const id [])objects
-													count:(NSUInteger)cnt
-										 comparator:(NSComparator) comparator;	/* designated initializer */
+                          count:(NSUInteger)cnt
+                     comparator:(NSComparator) comparator;	/* designated initializer */
 
 - (instancetype)initWithComparator:(NSComparator) comparator
-													 objects:(id)anObject, ... NS_REQUIRES_NIL_TERMINATION;
+                           objects:(id)anObject, ... NS_REQUIRES_NIL_TERMINATION;
 - (instancetype)initWithArray:(NSArray *)binaryHeap
-									 comparator:(NSComparator) comparator;
+                   comparator:(NSComparator) comparator;
 - (instancetype)initWithArray:(NSArray *)binaryHeap
-										copyItems:(BOOL)flag
-									 comparator:(NSComparator) comparator;
+                    copyItems:(BOOL)flag
+                   comparator:(NSComparator) comparator;
 
 - (id) head;
 - (NSArray*) allObjects;
