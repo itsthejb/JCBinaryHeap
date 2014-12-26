@@ -37,7 +37,7 @@
 		49D2D9621A4DC58600F4608C /* Specs.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Specs.m; sourceTree = "<group>"; };
 		49E57FB21A4D8CAE0028EE7E /* libJCBinaryHeap.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libJCBinaryHeap.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		49E57FB51A4D8CAE0028EE7E /* JCBinaryHeap.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JCBinaryHeap.h; sourceTree = "<group>"; };
-		49E57FB71A4D8CAE0028EE7E /* JCBinaryHeap.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JCBinaryHeap.m; sourceTree = "<group>"; };
+		49E57FB71A4D8CAE0028EE7E /* JCBinaryHeap.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JCBinaryHeap.m; sourceTree = "<group>"; usesTabs = 0; };
 		49E57FBD1A4D8CAE0028EE7E /* JCBinaryHeapTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = JCBinaryHeapTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		49E57FC31A4D8CAE0028EE7E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8C2E9F867FA76DF66A08207C /* libPods-JCHeapTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-JCHeapTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };

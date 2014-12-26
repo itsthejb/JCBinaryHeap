@@ -125,18 +125,17 @@ describe(@"protocols", ^{
 	});
 	
 	it(@"should enumerate", ^{
-		NSMutableArray *array = @[].mutableCopy;
-		for (NSUInteger i = 0; i < 32; ++i) {
+		for (NSUInteger i = 0; i < 100; ++i) {
 			NSNumber *rand = @(arc4random() % 20);
-			[array addObject:rand];
 			[heap addObject:rand];
 		}
-		[array sortUsingSelector:@selector(compare:)];
-		
+
+		NSMutableArray *array = @[].mutableCopy;
 		for (id obj in heap) {
 			[array addObject:obj];
 		}
-		expect(array).to.equal(heap.allObjects);
+
+		expect([array sortedArrayUsingSelector:@selector(compare:)]).to.equal([heap.allObjects sortedArrayUsingSelector:@selector(compare:)]);
 	});
 });
 

@@ -52,6 +52,8 @@
 
 - (BOOL) isEmpty;
 
+- (BOOL) containsObject:(id) object;
+
 - (NSUInteger) count;
 - (NSUInteger) countOfObject:(id) object;
 @end
