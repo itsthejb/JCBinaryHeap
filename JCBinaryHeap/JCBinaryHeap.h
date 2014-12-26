@@ -8,8 +8,11 @@
 
 #import <Foundation/Foundation.h>
 
+typedef void (^JCBinaryHeapApplyBlock)(id object);
+
 @interface JCBinaryHeap : NSObject
 - (instancetype) initWithComparator:(NSComparator) comparator;
+- (void) apply:(JCBinaryHeapApplyBlock) block;
 - (void) addObject:(id) object;
 - (id) removeHead;
 - (id) head;

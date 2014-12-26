@@ -12,6 +12,7 @@
 	CFBinaryHeapRef _heap;
 }
 @property (copy) NSComparator comparator;
+@property (copy) JCBinaryHeapApplyBlock mappingBlock;
 @end
 
 static const void *_jc_heapRetainCallback(CFAllocatorRef ref, const void *ptr) {
@@ -30,6 +31,11 @@ static CFStringRef _jc_heap_copyDescriptionCallback(const void *ptr) {
 static CFComparisonResult _jc_heapCompareCallback(const void *ptr1, const void *ptr2, void *context) {
 	JCBinaryHeap *heap = (__bridge JCBinaryHeap *)(context);
 	return (CFComparisonResult) heap.comparator((__bridge id)(ptr1), (__bridge id)(ptr2));
+}
+
+static void _jc_heapApplierCallBack(const void *val, void *context) {
+	JCBinaryHeap *heap = (__bridge JCBinaryHeap *)(context);
+	heap.mappingBlock((__bridge id)(val));
 }
 
 @implementation JCBinaryHeap
@@ -64,6 +70,14 @@ static CFComparisonResult _jc_heapCompareCallback(const void *ptr1, const void *
 
 - (NSString *)description {
 	return [NSString stringWithFormat:@"%@%@", super.description, self.allObjects];
+}
+
+- (void) apply:(JCBinaryHeapApplyBlock) block {
+	@synchronized(self) {
+		self.mappingBlock = block;
+		CFBinaryHeapApplyFunction(_heap, &_jc_heapApplierCallBack, (__bridge void *)(self));
+		self.mappingBlock = nil;
+	}
 }
 
 - (void) addObject:(id) object {

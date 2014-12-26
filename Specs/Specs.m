@@ -59,8 +59,22 @@ describe(@"basic functionality", ^{
 			expect(heap.allObjects).to.equal(@[@1, @10, @100]);
 		});
 		
-	});
+		describe(@"mapping", ^{
+			
+			__block NSMutableArray *mapped = nil;
+			
+			before(^{
+				mapped = @[].mutableCopy;
+				[heap apply:^(NSNumber *number) {
+					[mapped addObject:@(number.unsignedIntegerValue * 3)];
+				}];
+			});
 
+			it(@"should have applied mapping", ^{
+				expect(mapped).to.equal(@[@3, @30, @300]);
+			});
+		});
+	});
 });
 
 SpecEnd
