@@ -1,13 +1,8 @@
-platform :osx, '10.10'
+platform :osx, '10.7'
 
-#pod '<#pod name#>'
-
-#target :JCHeap, :exclusive => true do
-#end
-
-target :JCHeapTests, :exclusive => true do
-pod 'Expecta'
-pod 'Specta'
+target :Specs, :exclusive => true do
+pod 'Expecta', '0.3.1'
+pod 'Specta', :git => 'https://github.com/specta/specta.git'
 end
 
 inhibit_all_warnings!

@@ -13,7 +13,7 @@
 		49E57FB61A4D8CAE0028EE7E /* JCBinaryHeap.h in Headers */ = {isa = PBXBuildFile; fileRef = 49E57FB51A4D8CAE0028EE7E /* JCBinaryHeap.h */; };
 		49E57FB81A4D8CAE0028EE7E /* JCBinaryHeap.m in Sources */ = {isa = PBXBuildFile; fileRef = 49E57FB71A4D8CAE0028EE7E /* JCBinaryHeap.m */; };
 		49E57FBE1A4D8CAE0028EE7E /* libJCBinaryHeap.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 49E57FB21A4D8CAE0028EE7E /* libJCBinaryHeap.a */; };
-		D3A816E61C9025EA0C4302C4 /* libPods-JCHeapTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C2E9F867FA76DF66A08207C /* libPods-JCHeapTests.a */; };
+		7817541A8FE3777A88E82F32 /* libPods-Specs.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FAE20EF1ED535A9F411DCF5 /* libPods-Specs.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -27,7 +27,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		19F42EDA8D691F8F025D3C67 /* Pods-JCHeapTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JCHeapTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-JCHeapTests/Pods-JCHeapTests.release.xcconfig"; sourceTree = "<group>"; };
+		0EBCE85E3FDE69D280525203 /* Pods-Specs.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Specs.release.xcconfig"; path = "Pods/Target Support Files/Pods-Specs/Pods-Specs.release.xcconfig"; sourceTree = "<group>"; };
+		2FAE20EF1ED535A9F411DCF5 /* libPods-Specs.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Specs.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		4323B15BDC91B601199FE981 /* Pods-Specs.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Specs.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Specs/Pods-Specs.debug.xcconfig"; sourceTree = "<group>"; };
 		490310551A4DCB7E00A47BBA /* JCBinaryHeap.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = JCBinaryHeap.podspec; sourceTree = "<group>"; };
 		490310561A4DCB7E00A47BBA /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		49154D7C1A4D8D6A00257D20 /* Podfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; };
@@ -38,7 +40,6 @@
 		49E57FB71A4D8CAE0028EE7E /* JCBinaryHeap.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JCBinaryHeap.m; sourceTree = "<group>"; };
 		49E57FBD1A4D8CAE0028EE7E /* JCBinaryHeapTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = JCBinaryHeapTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		49E57FC31A4D8CAE0028EE7E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		5282611ADD099909BB5E2163 /* Pods-JCHeapTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JCHeapTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-JCHeapTests/Pods-JCHeapTests.debug.xcconfig"; sourceTree = "<group>"; };
 		8C2E9F867FA76DF66A08207C /* libPods-JCHeapTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-JCHeapTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -55,7 +56,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				49E57FBE1A4D8CAE0028EE7E /* libJCBinaryHeap.a in Frameworks */,
-				D3A816E61C9025EA0C4302C4 /* libPods-JCHeapTests.a in Frameworks */,
+				7817541A8FE3777A88E82F32 /* libPods-Specs.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -67,8 +68,8 @@
 			children = (
 				49154D7C1A4D8D6A00257D20 /* Podfile */,
 				490310551A4DCB7E00A47BBA /* JCBinaryHeap.podspec */,
-				5282611ADD099909BB5E2163 /* Pods-JCHeapTests.debug.xcconfig */,
-				19F42EDA8D691F8F025D3C67 /* Pods-JCHeapTests.release.xcconfig */,
+				4323B15BDC91B601199FE981 /* Pods-Specs.debug.xcconfig */,
+				0EBCE85E3FDE69D280525203 /* Pods-Specs.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -77,6 +78,7 @@
 			isa = PBXGroup;
 			children = (
 				8C2E9F867FA76DF66A08207C /* libPods-JCHeapTests.a */,
+				2FAE20EF1ED535A9F411DCF5 /* libPods-Specs.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -255,7 +257,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-JCHeapTests/Pods-JCHeapTests-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Specs/Pods-Specs-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -380,7 +382,7 @@
 		};
 		49E57FCA1A4D8CAE0028EE7E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5282611ADD099909BB5E2163 /* Pods-JCHeapTests.debug.xcconfig */;
+			baseConfigurationReference = 4323B15BDC91B601199FE981 /* Pods-Specs.debug.xcconfig */;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -398,7 +400,7 @@
 		};
 		49E57FCB1A4D8CAE0028EE7E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 19F42EDA8D691F8F025D3C67 /* Pods-JCHeapTests.release.xcconfig */;
+			baseConfigurationReference = 0EBCE85E3FDE69D280525203 /* Pods-Specs.release.xcconfig */;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
