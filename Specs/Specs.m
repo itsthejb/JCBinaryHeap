@@ -14,31 +14,42 @@
 SpecBegin(Specs)
 
 __block JCBinaryHeap *heap = nil;
+NSComparator comparator = ^NSComparisonResult(NSNumber *l,
+																							NSNumber *r)
+{
+	return [l compare:r];
+};
 
 before(^{
-	heap = [[JCBinaryHeap alloc] initWithComparator:^NSComparisonResult(NSNumber *l,
-																																			NSNumber *r)
-	{
-		return [l compare:r];
-	}];
+	heap = [[JCBinaryHeap alloc] initWithComparator:comparator];
 });
 
 it(@"should be empty", ^{
 	expect(heap.count).to.equal(0);
 	expect(heap.isEmpty).to.beTruthy();
+	expect(heap.allObjects).to.equal(@[]);
+});
+
+describe(@"custom initialisers", ^{
+	
+	it(@"should create va_args heap", ^{
+		heap = [JCBinaryHeap binaryHeapWithComparator:comparator objects:@9, @1, @0, @23, nil];
+		expect(heap.allObjects).to.equal(@[@0, @1, @9, @23]);
+	});
+		
 });
 
 describe(@"basic functionality", ^{
-
+	
 	before(^{
 		[heap addObject:@10];
 	});
 	
-  it(@"should add an object", ^{
+	it(@"should add an object", ^{
 		expect(heap.count).to.equal(1);
 		expect(heap.isEmpty).to.beFalsy();
 		expect(heap.allObjects).to.equal(@[@10]);
-  });
+	});
 	
 	it(@"should pop an object", ^{
 		[heap removeHead];
@@ -69,7 +80,7 @@ describe(@"basic functionality", ^{
 					[mapped addObject:@(number.unsignedIntegerValue * 3)];
 				}];
 			});
-
+			
 			it(@"should have applied mapping", ^{
 				expect(mapped).to.equal(@[@3, @30, @300]);
 			});

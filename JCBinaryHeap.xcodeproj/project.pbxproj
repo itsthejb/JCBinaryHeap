@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		490310571A4DCB7E00A47BBA /* JCBinaryHeap.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 490310551A4DCB7E00A47BBA /* JCBinaryHeap.podspec */; };
+		490310581A4DCB7E00A47BBA /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 490310561A4DCB7E00A47BBA /* LICENSE */; };
 		49D2D9631A4DC58600F4608C /* Specs.m in Sources */ = {isa = PBXBuildFile; fileRef = 49D2D9621A4DC58600F4608C /* Specs.m */; };
 		49E57FB61A4D8CAE0028EE7E /* JCBinaryHeap.h in Headers */ = {isa = PBXBuildFile; fileRef = 49E57FB51A4D8CAE0028EE7E /* JCBinaryHeap.h */; };
 		49E57FB81A4D8CAE0028EE7E /* JCBinaryHeap.m in Sources */ = {isa = PBXBuildFile; fileRef = 49E57FB71A4D8CAE0028EE7E /* JCBinaryHeap.m */; };
@@ -26,6 +28,8 @@
 
 /* Begin PBXFileReference section */
 		19F42EDA8D691F8F025D3C67 /* Pods-JCHeapTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JCHeapTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-JCHeapTests/Pods-JCHeapTests.release.xcconfig"; sourceTree = "<group>"; };
+		490310551A4DCB7E00A47BBA /* JCBinaryHeap.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = JCBinaryHeap.podspec; sourceTree = "<group>"; };
+		490310561A4DCB7E00A47BBA /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		49154D7C1A4D8D6A00257D20 /* Podfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; };
 		49D2D9621A4DC58600F4608C /* Specs.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Specs.m; sourceTree = "<group>"; };
 		49E57FB21A4D8CAE0028EE7E /* libJCBinaryHeap.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libJCBinaryHeap.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -63,6 +67,8 @@
 				49154D7C1A4D8D6A00257D20 /* Podfile */,
 				5282611ADD099909BB5E2163 /* Pods-JCHeapTests.debug.xcconfig */,
 				19F42EDA8D691F8F025D3C67 /* Pods-JCHeapTests.release.xcconfig */,
+				490310551A4DCB7E00A47BBA /* JCBinaryHeap.podspec */,
+				490310561A4DCB7E00A47BBA /* LICENSE */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -212,6 +218,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				490310581A4DCB7E00A47BBA /* LICENSE in Resources */,
+				490310571A4DCB7E00A47BBA /* JCBinaryHeap.podspec in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

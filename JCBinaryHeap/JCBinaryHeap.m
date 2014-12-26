@@ -12,17 +12,11 @@
 	CFBinaryHeapRef _heap;
 }
 @property (copy) NSComparator comparator;
-@property (copy) JCBinaryHeapApplyBlock mappingBlock;
+@property (copy) void (^mappingBlock)(id object);
 @end
 
-static const void *_jc_heapRetainCallback(CFAllocatorRef ref, const void *ptr) {
-	return CFRetain(ptr);
-}
-
-static void _jc_heap_releaseCallback(CFAllocatorRef ref, const void *ptr) {
-	CFRelease(ptr);
-}
-
+static const void *_jc_heapRetainCallback(CFAllocatorRef ref, const void *ptr) { return CFRetain(ptr); }
+static void _jc_heap_releaseCallback(CFAllocatorRef ref, const void *ptr) {	CFRelease(ptr); }
 static CFStringRef _jc_heap_copyDescriptionCallback(const void *ptr) {
 	id object = (__bridge id)(ptr);
 	return CFBridgingRetain([object description]);
@@ -39,6 +33,103 @@ static void _jc_heapApplierCallBack(const void *val, void *context) {
 }
 
 @implementation JCBinaryHeap
+
+#pragma mark Instantiation
+
++ (instancetype)binaryHeapWithComparator:(NSComparator) comparator {
+	return [[self alloc] initWithComparator:comparator];
+}
+
++ (instancetype)binaryHeapWithObject:(id)anObject
+													comparator:(NSComparator) comparator
+{
+	JCBinaryHeap *heap = [self binaryHeapWithComparator:comparator];
+	[heap addObject:anObject];
+	return heap;
+}
+
++ (instancetype)binaryHeapWithObjects:(const id [])objects
+																count:(NSUInteger)cnt
+													 comparator:(NSComparator) comparator
+{
+	return [[self alloc] initWithObjects:objects count:cnt comparator:comparator];
+}
+
++ (instancetype)binaryHeapWithComparator:(NSComparator) comparator
+																 objects:(id)anObject, ...
+{
+	va_list list;
+	va_start(list, anObject);
+	JCBinaryHeap *heap = [[self alloc] initWithObject:anObject
+																						va_list:list
+																				 comparator:comparator];
+	va_end(list);
+	return heap;
+}
+
++ (instancetype)binaryHeapWithArray:(NSArray *)array
+												 comparator:(NSComparator) comparator
+{
+	return [[self alloc] initWithArray:array comparator:comparator];
+}
+
+- (instancetype)initWithObjects:(const id [])objects
+													count:(NSUInteger)cnt
+										 comparator:(NSComparator) comparator
+{
+	if ((self = [self initWithComparator:comparator])) {
+		for (NSUInteger i = 0; i < cnt; ++i) {
+			[self addObject:objects[i]];
+		}
+	}
+	return self;
+}
+
+- (instancetype)initWithObject:(id) object
+											 va_list:(va_list)list
+										comparator:(NSComparator)comparator
+{
+	if ((self = [self initWithComparator:comparator])) {
+		[self addObject:object];
+		while ((object = va_arg(list, id))) {
+			[self addObject:object];
+		}
+	}
+	return self;
+}
+
+- (instancetype)initWithComparator:(NSComparator) comparator
+													 objects:(id)anObject, ...
+{
+	va_list list;
+	va_start(list, anObject);
+	self = [self initWithObject:anObject
+											va_list:list
+									 comparator:comparator];
+	va_end(list);
+	return self;
+}
+
+- (instancetype)initWithArray:(NSArray *)array
+									 comparator:(NSComparator) comparator
+{
+	if ((self = [self initWithComparator:comparator])) {
+		[self addObjectsFromArray:array];
+	}
+	return self;
+}
+
+- (instancetype)initWithArray:(NSArray *)array
+										copyItems:(BOOL)flag
+									 comparator:(NSComparator) comparator
+{
+	if ((self = [self initWithComparator:comparator])) {
+		[self addObjectsFromArray:(flag ?
+															 [[NSArray alloc] initWithArray:array copyItems:flag] :
+															 array)];
+	}
+	return self;
+}
 
 - (instancetype) initWithComparator:(NSComparator) comparator
 {
@@ -72,7 +163,7 @@ static void _jc_heapApplierCallBack(const void *val, void *context) {
 	return [NSString stringWithFormat:@"%@%@", super.description, self.allObjects];
 }
 
-- (void) apply:(JCBinaryHeapApplyBlock) block {
+- (void) apply:(void (^)(id object)) block {
 	@synchronized(self) {
 		self.mappingBlock = block;
 		CFBinaryHeapApplyFunction(_heap, &_jc_heapApplierCallBack, (__bridge void *)(self));
@@ -81,9 +172,16 @@ static void _jc_heapApplierCallBack(const void *val, void *context) {
 }
 
 - (void) addObject:(id) object {
+	NSParameterAssert(object);
 	@synchronized(self) {
 		CFBinaryHeapAddValue(_heap, (__bridge const void *)(object));
 	}
+}
+
+- (void)addObjectsFromArray:(NSArray *)array {
+	[array enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+		[self addObject:obj];
+	}];
 }
 
 - (id) removeHead {
@@ -105,31 +203,33 @@ static void _jc_heapApplierCallBack(const void *val, void *context) {
 }
 
 - (NSUInteger)count {
+	NSUInteger count = 0;
 	@synchronized(self) {
-		NSUInteger count = 0;
 		count = CFBinaryHeapGetCount(_heap);
-		return count;
 	}
+	return count;
 }
 
 - (id) head {
+	id head = nil;
 	@synchronized(self) {
 		if (self.count) {
-			id head = CFBinaryHeapGetMinimum(_heap);
-			return head;
+			head = CFBinaryHeapGetMinimum(_heap);
 		}
-		return nil;
 	}
+	return head;
 }
 
 - (NSArray*) allObjects {
+	NSArray *allObjects = nil;
 	@synchronized(self) {
 		CFIndex size = CFBinaryHeapGetCount(_heap);
 		CFTypeRef *cfValues = calloc(size, sizeof(CFTypeRef));
 		CFBinaryHeapGetValues(_heap, (const void **)cfValues);
 		CFArrayRef values = CFArrayCreate(kCFAllocatorDefault, cfValues, size, &kCFTypeArrayCallBacks);
-		return (__bridge NSArray *)(values);
+		allObjects = (__bridge NSArray *)(values);
 	}
+	return allObjects;
 }
 
 @end

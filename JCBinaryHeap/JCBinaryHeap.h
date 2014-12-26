@@ -8,12 +8,38 @@
 
 #import <Foundation/Foundation.h>
 
-typedef void (^JCBinaryHeapApplyBlock)(id object);
-
+/**
+ OO-wrapper for `CFBinaryHeap`
+ */
 @interface JCBinaryHeap : NSObject
-- (instancetype) initWithComparator:(NSComparator) comparator;
-- (void) apply:(JCBinaryHeapApplyBlock) block;
+
++ (instancetype)binaryHeapWithComparator:(NSComparator) comparator;
++ (instancetype)binaryHeapWithObject:(id)anObject
+													comparator:(NSComparator) comparator;
++ (instancetype)binaryHeapWithObjects:(const id [])objects
+																count:(NSUInteger)cnt
+													 comparator:(NSComparator) comparator;
++ (instancetype)binaryHeapWithComparator:(NSComparator) comparator
+																 objects:(id)anObject, ... NS_REQUIRES_NIL_TERMINATION;
++ (instancetype)binaryHeapWithArray:(NSArray *)array
+												 comparator:(NSComparator) comparator;
+
+- (instancetype)initWithComparator:(NSComparator) comparator; /* designated initializer */
+- (instancetype)initWithObjects:(const id [])objects
+													count:(NSUInteger)cnt
+										 comparator:(NSComparator) comparator;	/* designated initializer */
+
+- (instancetype)initWithComparator:(NSComparator) comparator
+													 objects:(id)anObject, ... NS_REQUIRES_NIL_TERMINATION;
+- (instancetype)initWithArray:(NSArray *)binaryHeap
+									 comparator:(NSComparator) comparator;
+- (instancetype)initWithArray:(NSArray *)binaryHeap
+										copyItems:(BOOL)flag
+									 comparator:(NSComparator) comparator;
+
+- (void) apply:(void (^)(id object)) block;
 - (void) addObject:(id) object;
+- (void) addObjectsFromArray:(NSArray*) array;
 - (id) removeHead;
 - (id) head;
 - (void) removeAllObjects;
