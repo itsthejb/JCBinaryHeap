@@ -155,6 +155,8 @@ static void _jc_heapApplierCallBack(const void *val, void *context) {
 	return self;
 }
 
+#pragma mark NSObject
+
 - (void)dealloc {
 	CFRelease(_heap);
 }
@@ -163,13 +165,7 @@ static void _jc_heapApplierCallBack(const void *val, void *context) {
 	return [NSString stringWithFormat:@"%@%@", super.description, self.allObjects];
 }
 
-- (void) apply:(void (^)(id object)) block {
-	@synchronized(self) {
-		self.mappingBlock = block;
-		CFBinaryHeapApplyFunction(_heap, &_jc_heapApplierCallBack, (__bridge void *)(self));
-		self.mappingBlock = nil;
-	}
-}
+#pragma mark Add/remove
 
 - (void) addObject:(id) object {
 	NSParameterAssert(object);
@@ -184,34 +180,6 @@ static void _jc_heapApplierCallBack(const void *val, void *context) {
 			CFBinaryHeapAddValue(_heap, (__bridge const void *)(obj));
 		}];
 	}
-}
-
-- (id) removeObject {
-	@synchronized(self) {
-		id head = [self head];
-		if (head) {
-			CFBinaryHeapRemoveMinimumValue(_heap);
-		}
-		return head;
-	}
-}
-
-- (void)removeAllObjects {
-	@synchronized(self) {
-		CFBinaryHeapRemoveAllValues(_heap);
-	}
-}
-
-- (BOOL)isEmpty {
-	return self.count == 0;
-}
-
-- (NSUInteger)count {
-	NSUInteger count = 0;
-	@synchronized(self) {
-		count = CFBinaryHeapGetCount(_heap);
-	}
-	return count;
 }
 
 - (id) head {
@@ -235,5 +203,47 @@ static void _jc_heapApplierCallBack(const void *val, void *context) {
 	}
 	return allObjects;
 }
+
+- (id) removeObject {
+	@synchronized(self) {
+		id head = [self head];
+		if (head) {
+			CFBinaryHeapRemoveMinimumValue(_heap);
+		}
+		return head;
+	}
+}
+
+- (void)removeAllObjects {
+	@synchronized(self) {
+		CFBinaryHeapRemoveAllValues(_heap);
+	}
+}
+
+#pragma mark Function
+
+- (void) apply:(void (^)(id object)) block {
+	@synchronized(self) {
+		self.mappingBlock = block;
+		CFBinaryHeapApplyFunction(_heap, &_jc_heapApplierCallBack, (__bridge void *)(self));
+		self.mappingBlock = nil;
+	}
+}
+
+#pragma mark Count
+
+- (BOOL)isEmpty {
+	return self.count == 0;
+}
+
+- (NSUInteger)count {
+	NSUInteger count = 0;
+	@synchronized(self) {
+		count = CFBinaryHeapGetCount(_heap);
+	}
+	return count;
+}
+
+
 
 @end
