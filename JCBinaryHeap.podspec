@@ -9,7 +9,7 @@ Pod::Spec.new do |s|
   s.source        = { :git => "<#repository#>", :tag => "v" + s.version.to_s }
   s.ios.deployment_target = '4.0'
   s.osx.deployment_target = '6.0'
-  s.source_files  = s.name + '/**/*.{h,m}'
+  s.source_files  = s.name + 'JCBinaryHeap/JCBinaryHeap.{h,m}'
   s.frameworks    = 'Foundation'
   s.requires_arc  = true
 end
