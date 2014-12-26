@@ -37,13 +37,17 @@
 										copyItems:(BOOL)flag
 									 comparator:(NSComparator) comparator;
 
-- (void) apply:(void (^)(id object)) block;
+- (id) head;
+- (NSArray*) allObjects;
+
 - (void) addObject:(id) object;
 - (void) addObjectsFromArray:(NSArray*) array;
-- (id) removeHead;
-- (id) head;
+
+- (id) removeObject;
 - (void) removeAllObjects;
+
+- (void) apply:(void (^)(id object)) block;
+
 - (BOOL) isEmpty;
 - (NSUInteger) count;
-- (NSArray*) allObjects;
 @end

@@ -179,15 +179,19 @@ static void _jc_heapApplierCallBack(const void *val, void *context) {
 }
 
 - (void)addObjectsFromArray:(NSArray *)array {
-	[array enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-		[self addObject:obj];
-	}];
+	@synchronized(self) {
+		[array enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+			CFBinaryHeapAddValue(_heap, (__bridge const void *)(obj));
+		}];
+	}
 }
 
-- (id) removeHead {
+- (id) removeObject {
 	@synchronized(self) {
 		id head = [self head];
-		CFBinaryHeapRemoveMinimumValue(_heap);
+		if (head) {
+			CFBinaryHeapRemoveMinimumValue(_heap);
+		}
 		return head;
 	}
 }

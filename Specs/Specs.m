@@ -66,7 +66,7 @@ describe(@"basic functionality", ^{
 	});
 	
 	it(@"should pop an object", ^{
-		[heap removeHead];
+		[heap removeObject];
 		expect(heap.count).to.equal(0);
 		expect(heap.isEmpty).to.beTruthy();
 	});
@@ -99,6 +99,13 @@ describe(@"basic functionality", ^{
 				expect(mapped).to.equal(@[@3, @30, @300]);
 			});
 		});
+	});
+});
+
+describe(@"edge cases", ^{
+	it(@"should handle remove from empty heap", ^{
+		heap = [JCBinaryHeap binaryHeapWithComparator:numberComparator];
+		expect(heap.removeObject).to.beNil();
 	});
 });
 
