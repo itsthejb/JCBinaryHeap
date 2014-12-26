@@ -46,7 +46,7 @@
 - (id) removeObject;
 - (void) removeAllObjects;
 
-- (void) apply:(void (^)(id object)) block;
+- (void) enumerateObjectsUsingBlock:(void (^)(id object)) block;
 
 - (BOOL) isEqualToBinaryHeap:(JCBinaryHeap*) heap;
 

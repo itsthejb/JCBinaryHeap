@@ -94,7 +94,7 @@ describe(@"basic functionality", ^{
 			
 			before(^{
 				mapped = @[].mutableCopy;
-				[heap apply:^(NSNumber *number) {
+				[heap enumerateObjectsUsingBlock:^(NSNumber *number) {
 					[mapped addObject:@(number.unsignedIntegerValue * 3)];
 				}];
 			});

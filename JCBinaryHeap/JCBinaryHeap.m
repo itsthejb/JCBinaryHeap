@@ -11,7 +11,6 @@
 @interface JCBinaryHeap ()
 @property (assign) CFBinaryHeapRef heap;
 @property (copy) NSComparator comparator;
-@property (copy) void (^mappingBlock)(id object);
 @end
 
 static const void *_jc_heapRetainCallback(CFAllocatorRef ref, const void *ptr) { return CFRetain(ptr); }
@@ -26,9 +25,9 @@ static CFComparisonResult _jc_heapCompareCallback(const void *ptr1, const void *
 	return (CFComparisonResult) heap.comparator((__bridge id)(ptr1), (__bridge id)(ptr2));
 }
 
-static void _jc_heapApplierCallBack(const void *val, void *context) {
-	JCBinaryHeap *heap = (__bridge JCBinaryHeap *)(context);
-	heap.mappingBlock((__bridge id)(val));
+static void _jc_heapEnumerationCallBack(const void *val, void *context) {
+	void (^block)(id object) = (__bridge void (^)(__strong id))(context);
+	block((__bridge id)(val));
 }
 
 @implementation JCBinaryHeap
@@ -222,11 +221,9 @@ static void _jc_heapApplierCallBack(const void *val, void *context) {
 
 #pragma mark Function
 
-- (void) apply:(void (^)(id object)) block {
+- (void) enumerateObjectsUsingBlock:(void (^)(id object)) block {
 	@synchronized(self) {
-		self.mappingBlock = block;
-		CFBinaryHeapApplyFunction(self.heap, &_jc_heapApplierCallBack, (__bridge void *)(self));
-		self.mappingBlock = nil;
+		CFBinaryHeapApplyFunction(self.heap, &_jc_heapEnumerationCallBack, (__bridge void *)(block));
 	}
 }
 
