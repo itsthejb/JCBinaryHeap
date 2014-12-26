@@ -8,9 +8,8 @@
 
 #import "JCBinaryHeap.h"
 
-@interface JCBinaryHeap () {
-	CFBinaryHeapRef _heap;
-}
+@interface JCBinaryHeap ()
+@property (assign) CFBinaryHeapRef heap;
 @property (copy) NSComparator comparator;
 @property (copy) void (^mappingBlock)(id object);
 @end
@@ -149,7 +148,7 @@ static void _jc_heapApplierCallBack(const void *val, void *context) {
 			.release = CFRelease,
 			.copyDescription = CFCopyDescription
 		};
-		_heap = CFBinaryHeapCreate(NULL, 0, &callBacks, &context);
+		self.heap = CFBinaryHeapCreate(NULL, 0, &callBacks, &context);
 		self.comparator = comparator;
 	}
 	return self;
@@ -158,7 +157,7 @@ static void _jc_heapApplierCallBack(const void *val, void *context) {
 #pragma mark NSObject
 
 - (void)dealloc {
-	CFRelease(_heap);
+	CFRelease(self.heap);
 }
 
 - (NSString *)description {
@@ -170,14 +169,14 @@ static void _jc_heapApplierCallBack(const void *val, void *context) {
 - (void) addObject:(id) object {
 	NSParameterAssert(object);
 	@synchronized(self) {
-		CFBinaryHeapAddValue(_heap, (__bridge const void *)(object));
+		CFBinaryHeapAddValue(self.heap, (__bridge const void *)(object));
 	}
 }
 
 - (void)addObjectsFromArray:(NSArray *)array {
 	@synchronized(self) {
 		[array enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-			CFBinaryHeapAddValue(_heap, (__bridge const void *)(obj));
+			CFBinaryHeapAddValue(self.heap, (__bridge const void *)(obj));
 		}];
 	}
 }
@@ -186,7 +185,7 @@ static void _jc_heapApplierCallBack(const void *val, void *context) {
 	id head = nil;
 	@synchronized(self) {
 		if (self.count) {
-			head = CFBinaryHeapGetMinimum(_heap);
+			head = CFBinaryHeapGetMinimum(self.heap);
 		}
 	}
 	return head;
@@ -195,9 +194,9 @@ static void _jc_heapApplierCallBack(const void *val, void *context) {
 - (NSArray*) allObjects {
 	NSArray *allObjects = nil;
 	@synchronized(self) {
-		CFIndex size = CFBinaryHeapGetCount(_heap);
+		CFIndex size = CFBinaryHeapGetCount(self.heap);
 		CFTypeRef *cfValues = calloc(size, sizeof(CFTypeRef));
-		CFBinaryHeapGetValues(_heap, (const void **)cfValues);
+		CFBinaryHeapGetValues(self.heap, (const void **)cfValues);
 		CFArrayRef values = CFArrayCreate(kCFAllocatorDefault, cfValues, size, &kCFTypeArrayCallBacks);
 		allObjects = (__bridge NSArray *)(values);
 	}
@@ -208,7 +207,7 @@ static void _jc_heapApplierCallBack(const void *val, void *context) {
 	@synchronized(self) {
 		id head = [self head];
 		if (head) {
-			CFBinaryHeapRemoveMinimumValue(_heap);
+			CFBinaryHeapRemoveMinimumValue(self.heap);
 		}
 		return head;
 	}
@@ -216,7 +215,7 @@ static void _jc_heapApplierCallBack(const void *val, void *context) {
 
 - (void)removeAllObjects {
 	@synchronized(self) {
-		CFBinaryHeapRemoveAllValues(_heap);
+		CFBinaryHeapRemoveAllValues(self.heap);
 	}
 }
 
@@ -225,7 +224,7 @@ static void _jc_heapApplierCallBack(const void *val, void *context) {
 - (void) apply:(void (^)(id object)) block {
 	@synchronized(self) {
 		self.mappingBlock = block;
-		CFBinaryHeapApplyFunction(_heap, &_jc_heapApplierCallBack, (__bridge void *)(self));
+		CFBinaryHeapApplyFunction(self.heap, &_jc_heapApplierCallBack, (__bridge void *)(self));
 		self.mappingBlock = nil;
 	}
 }
@@ -239,11 +238,19 @@ static void _jc_heapApplierCallBack(const void *val, void *context) {
 - (NSUInteger)count {
 	NSUInteger count = 0;
 	@synchronized(self) {
-		count = CFBinaryHeapGetCount(_heap);
+		count = CFBinaryHeapGetCount(self.heap);
 	}
 	return count;
 }
 
+#pragma mark NSCopying
 
+- (id)copyWithZone:(NSZone *)zone {
+	JCBinaryHeap *copy = [[JCBinaryHeap alloc] initWithComparator:self.comparator];
+	@synchronized(self) {
+		copy.heap = CFBinaryHeapCreateCopy(NULL, self.count, self.heap);
+	}
+	return copy;
+}
 
 @end

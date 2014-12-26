@@ -11,6 +11,10 @@
 #import <Specta/Specta.h>
 #import "JCBinaryHeap.h"
 
+@interface JCBinaryHeap ()
+@property (assign) CFBinaryHeapRef heap;
+@end
+
 SpecBegin(Specs)
 
 __block JCBinaryHeap *heap = nil;
@@ -99,6 +103,15 @@ describe(@"basic functionality", ^{
 				expect(mapped).to.equal(@[@3, @30, @300]);
 			});
 		});
+	});
+});
+
+describe(@"protocols", ^{
+	it(@"should create a copy", ^{
+		heap = [JCBinaryHeap binaryHeapWithArray:@[@4, @1, @78] comparator:numberComparator];
+		JCBinaryHeap *copy = heap.copy;
+		expect(heap.allObjects).to.equal(copy.allObjects);
+		expect(heap.heap == copy.heap).to.beFalsy();
 	});
 });
 

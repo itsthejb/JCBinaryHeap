@@ -11,7 +11,7 @@
 /**
  OO-wrapper for `CFBinaryHeap`
  */
-@interface JCBinaryHeap : NSObject
+@interface JCBinaryHeap : NSObject <NSCopying, NSCopying, NSFastEnumeration>
 
 + (instancetype)binaryHeapWithComparator:(NSComparator) comparator;
 + (instancetype)binaryHeapWithObject:(id)anObject
