@@ -18,15 +18,9 @@
 SpecBegin(Specs)
 
 __block JCBinaryHeap *heap = nil;
-NSComparator numberComparator = ^NSComparisonResult(NSNumber *l, NSNumber *r) {
-	return [l compare:r];
-};
-NSComparator stringComparator = ^NSComparisonResult(NSString *l, NSString *r) {
-	return [l compare:r];
-};
 
 before(^{
-	heap = [[JCBinaryHeap alloc] initWithComparator:numberComparator];
+	heap = [[JCBinaryHeap alloc] initWithComparator:JCBinaryHeapCompareSelectorComparator];
 });
 
 it(@"should be empty", ^{
@@ -38,20 +32,25 @@ it(@"should be empty", ^{
 describe(@"custom initialisers", ^{
 	
 	it(@"should create va_args heap", ^{
-		heap = [JCBinaryHeap binaryHeapWithComparator:numberComparator objects:@9, @1, @0, @23, nil];
+		heap = [JCBinaryHeap binaryHeapWithComparator:JCBinaryHeapCompareSelectorComparator
+																					objects:@9, @1, @0, @23, nil];
 		expect(heap.allObjects).to.equal(@[@0, @1, @9, @23]);
 	});
 	
 	it(@"should create an array heap", ^{
 		NSArray *array = @[@"foo"];
-		heap = [[JCBinaryHeap alloc] initWithArray:array copyItems:NO comparator:stringComparator];
+		heap = [[JCBinaryHeap alloc] initWithArray:array
+																		 copyItems:NO
+																		comparator:JCBinaryHeapCompareSelectorComparator];
 		expect(heap.allObjects).to.equal(array);
 		expect(heap.head == array.firstObject).to.beTruthy();
 	});
 	
 	it(@"should create an array heap, copied objects", ^{
 		NSArray *array = @[@"foo"];
-		heap = [[JCBinaryHeap alloc] initWithArray:array copyItems:YES comparator:stringComparator];
+		heap = [[JCBinaryHeap alloc] initWithArray:array
+																		 copyItems:YES
+																		comparator:JCBinaryHeapCompareSelectorComparator];
 		expect(heap.allObjects).to.equal(array);
 		expect(heap.head == array.firstObject).to.beTruthy();
 	});
@@ -109,7 +108,7 @@ describe(@"basic functionality", ^{
 describe(@"protocols", ^{
 	before(^{
 		heap = [JCBinaryHeap binaryHeapWithArray:@[@4, @1, @78]
-																	comparator:numberComparator];
+																	comparator:JCBinaryHeapCompareSelectorComparator];
 	});
 	
 	it(@"should create a copy", ^{
@@ -118,7 +117,7 @@ describe(@"protocols", ^{
 		expect(heap.heap == copy.heap).to.beFalsy();
 	});
 	
-	pending(@"should serialise", ^{
+	it(@"should serialise", ^{
 		NSData *data = [NSKeyedArchiver archivedDataWithRootObject:heap];
 		JCBinaryHeap *decoded = [NSKeyedUnarchiver unarchiveObjectWithData:data];
 		expect(decoded).to.equal(heap);
@@ -141,7 +140,7 @@ describe(@"protocols", ^{
 
 describe(@"edge cases", ^{
 	it(@"should handle remove from empty heap", ^{
-		heap = [JCBinaryHeap binaryHeapWithComparator:numberComparator];
+		heap = [JCBinaryHeap binaryHeapWithComparator:JCBinaryHeapCompareSelectorComparator];
 		expect(heap.removeObject).to.beNil();
 	});
 });

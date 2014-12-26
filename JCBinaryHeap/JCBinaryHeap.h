@@ -8,6 +8,9 @@
 
 #import <Foundation/Foundation.h>
 
+extern NSComparator JCBinaryHeapCompareSelectorComparator;
+extern NSComparator JCBinaryHeapCompareSelectorReverseComparator;
+
 /**
  OO-wrapper for `CFBinaryHeap`
  */
@@ -56,4 +59,5 @@
 
 - (NSUInteger) count;
 - (NSUInteger) countOfObject:(id) object;
+
 @end

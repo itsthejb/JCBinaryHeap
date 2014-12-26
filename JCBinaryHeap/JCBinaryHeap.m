@@ -13,6 +13,38 @@
 @property (copy) NSComparator comparator;
 @end
 
+static NSString const *const _jc_heapSelectorComparatorKey = @"SelectorComparator";
+NSComparator JCBinaryHeapCompareSelectorComparator = ^(id l, id r) {
+  return [l compare:r];
+};
+
+static NSString const *const _jc_heapSelectorReverseComparatorKey = @"SelectorReverseComparator";
+NSComparator JCBinaryHeapCompareSelectorReverseComparator = ^(id l, id r) {
+  return [r compare:l];
+};
+
+NS_INLINE NSString const *const _jc_heapEncodingKeyForComparator(NSComparator comparator) {
+  if (comparator == JCBinaryHeapCompareSelectorComparator) {
+    return _jc_heapSelectorComparatorKey;
+  }
+  if (comparator == JCBinaryHeapCompareSelectorReverseComparator) {
+    return _jc_heapSelectorReverseComparatorKey;
+  }
+  return nil;
+};
+
+NS_INLINE NSComparator _jc_heapComparatorForEncodingKey(NSString *encodingKey) {
+  static NSDictionary *map = nil;
+  static dispatch_once_t onceToken;
+  dispatch_once(&onceToken, ^{
+    map = @{
+            _jc_heapSelectorComparatorKey : JCBinaryHeapCompareSelectorComparator,
+            _jc_heapSelectorReverseComparatorKey : JCBinaryHeapCompareSelectorReverseComparator
+            };
+  });
+  return map[encodingKey];
+}
+
 static const void *_jc_heapRetainCallback(CFAllocatorRef ref, const void *ptr) { return CFRetain(ptr); }
 static void _jc_heap_releaseCallback(CFAllocatorRef ref, const void *ptr) {	CFRelease(ptr); }
 static CFStringRef _jc_heap_copyDescriptionCallback(const void *ptr) {
@@ -291,12 +323,16 @@ static void _jc_heapEnumerationCallBack(const void *val, void *context) {
 #pragma mark NSCoding
 
 - (void)encodeWithCoder:(NSCoder *)aCoder {
-  [aCoder encodeObject:self.comparator forKey:@"comparator"];
+  NSString const * const comparatorEncodingKey = _jc_heapEncodingKeyForComparator(self.comparator);
+  NSAssert(comparatorEncodingKey, @"Can't encode comparator. Use provided comparators for NSCoding.");
+  [aCoder encodeObject:comparatorEncodingKey forKey:@"comparatorEncodingKey"];
   [aCoder encodeObject:self.allObjects forKey:@"allObjects"];
 }
 
 - (id)initWithCoder:(NSCoder *)aDecoder {
-  NSComparator comparator = [aDecoder decodeObjectForKey:@"comparator"];
+  NSString *comparatorEncodingKey = [aDecoder decodeObjectForKey:@"comparatorEncodingKey"];
+  NSComparator comparator = _jc_heapComparatorForEncodingKey(comparatorEncodingKey);
+  NSAssert1(comparator, @"Could not decode comparator with key %@", comparatorEncodingKey);
   NSArray *allObjects = [aDecoder decodeObjectForKey:@"allObjects"];
   return [self initWithArray:allObjects comparator:comparator];
 }
