@@ -199,6 +199,7 @@ static void _jc_heapApplierCallBack(const void *val, void *context) {
 		CFBinaryHeapGetValues(self.heap, (const void **)cfValues);
 		CFArrayRef values = CFArrayCreate(kCFAllocatorDefault, cfValues, size, &kCFTypeArrayCallBacks);
 		allObjects = (__bridge NSArray *)(values);
+		free(cfValues);
 	}
 	return allObjects;
 }
@@ -243,6 +244,35 @@ static void _jc_heapApplierCallBack(const void *val, void *context) {
 	return count;
 }
 
+- (NSUInteger) countOfObject:(id) object {
+	NSUInteger count = 0;
+	@synchronized(self) {
+		count = CFBinaryHeapGetCountOfValue(self.heap, (__bridge const void *)(object));
+	}
+	return count;
+}
+
+#pragma mark Object
+
+- (BOOL)isEqual:(id)object {
+	if (self == object) {
+		return YES;
+	}
+	if ([object isKindOfClass:[self class]]) {
+		return [self isEqualToBinaryHeap:object];
+	}
+	return NO;
+}
+
+- (BOOL) isEqualToBinaryHeap:(JCBinaryHeap*) heap {
+	return [self.allObjects isEqual:heap.allObjects];
+}
+
+- (NSUInteger)hash {
+	// TODO:
+	return 0;
+}
+
 #pragma mark NSCopying
 
 - (id)copyWithZone:(NSZone *)zone {
@@ -251,6 +281,40 @@ static void _jc_heapApplierCallBack(const void *val, void *context) {
 		copy.heap = CFBinaryHeapCreateCopy(NULL, self.count, self.heap);
 	}
 	return copy;
+}
+
+#pragma mark NSCoding
+
+- (void)encodeWithCoder:(NSCoder *)aCoder {
+	[aCoder encodeObject:self.comparator forKey:@"comparator"];
+	[aCoder encodeObject:self.allObjects forKey:@"allObjects"];
+}
+
+- (id)initWithCoder:(NSCoder *)aDecoder {
+	NSComparator comparator = [aDecoder decodeObjectForKey:@"comparator"];
+	NSArray *allObjects = [aDecoder decodeObjectForKey:@"allObjects"];
+	return [self initWithArray:allObjects comparator:comparator];
+}
+
+#pragma mark NSFastEnumeration
+
+- (NSUInteger)countByEnumeratingWithState:(NSFastEnumerationState *)state
+																	objects:(id __unsafe_unretained [])buffer
+																		count:(NSUInteger)len
+{
+	@synchronized(self) {
+		CFIndex size = CFBinaryHeapGetCount(self.heap);
+		
+		if (state == 0) {
+			CFTypeRef *cfValues = calloc(size, sizeof(CFTypeRef));
+			CFBinaryHeapGetValues(self.heap, (const void **)cfValues);
+			state->extra[0] = (unsigned long) cfValues;
+		}
+		
+		
+		
+	}
+	return 0;
 }
 
 @end

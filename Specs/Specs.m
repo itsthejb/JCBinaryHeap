@@ -107,11 +107,36 @@ describe(@"basic functionality", ^{
 });
 
 describe(@"protocols", ^{
+	before(^{
+		heap = [JCBinaryHeap binaryHeapWithArray:@[@4, @1, @78]
+																	comparator:numberComparator];
+	});
+	
 	it(@"should create a copy", ^{
-		heap = [JCBinaryHeap binaryHeapWithArray:@[@4, @1, @78] comparator:numberComparator];
 		JCBinaryHeap *copy = heap.copy;
 		expect(heap.allObjects).to.equal(copy.allObjects);
 		expect(heap.heap == copy.heap).to.beFalsy();
+	});
+	
+	pending(@"should serialise", ^{
+		NSData *data = [NSKeyedArchiver archivedDataWithRootObject:heap];
+		JCBinaryHeap *decoded = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+		expect(decoded).to.equal(heap);
+	});
+	
+	it(@"should enumerate", ^{
+		NSMutableArray *array = @[].mutableCopy;
+		for (NSUInteger i = 0; i < 32; ++i) {
+			NSNumber *rand = @(arc4random() % 20);
+			[array addObject:rand];
+			[heap addObject:rand];
+		}
+		[array sortUsingSelector:@selector(compare:)];
+		
+		for (id obj in heap) {
+			[array addObject:obj];
+		}
+		expect(array).to.equal(heap.allObjects);
 	});
 });
 

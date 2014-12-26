@@ -11,7 +11,7 @@
 /**
  OO-wrapper for `CFBinaryHeap`
  */
-@interface JCBinaryHeap : NSObject <NSCopying, NSCopying, NSFastEnumeration>
+@interface JCBinaryHeap : NSObject <NSCopying, NSCoding, NSFastEnumeration>
 
 + (instancetype)binaryHeapWithComparator:(NSComparator) comparator;
 + (instancetype)binaryHeapWithObject:(id)anObject
@@ -48,6 +48,10 @@
 
 - (void) apply:(void (^)(id object)) block;
 
+- (BOOL) isEqualToBinaryHeap:(JCBinaryHeap*) heap;
+
 - (BOOL) isEmpty;
+
 - (NSUInteger) count;
+- (NSUInteger) countOfObject:(id) object;
 @end
