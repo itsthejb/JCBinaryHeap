@@ -1,0 +1,369 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		49E57FB61A4D8CAE0028EE7E /* JCHeap.h in Headers */ = {isa = PBXBuildFile; fileRef = 49E57FB51A4D8CAE0028EE7E /* JCHeap.h */; };
+		49E57FB81A4D8CAE0028EE7E /* JCHeap.m in Sources */ = {isa = PBXBuildFile; fileRef = 49E57FB71A4D8CAE0028EE7E /* JCHeap.m */; };
+		49E57FBE1A4D8CAE0028EE7E /* libJCHeap.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 49E57FB21A4D8CAE0028EE7E /* libJCHeap.a */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		49E57FBF1A4D8CAE0028EE7E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 49E57FAA1A4D8CAE0028EE7E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 49E57FB11A4D8CAE0028EE7E;
+			remoteInfo = JCHeap;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		49E57FB21A4D8CAE0028EE7E /* libJCHeap.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libJCHeap.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		49E57FB51A4D8CAE0028EE7E /* JCHeap.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JCHeap.h; sourceTree = "<group>"; };
+		49E57FB71A4D8CAE0028EE7E /* JCHeap.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JCHeap.m; sourceTree = "<group>"; };
+		49E57FBD1A4D8CAE0028EE7E /* JCHeapTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = JCHeapTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		49E57FC31A4D8CAE0028EE7E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		49E57FAF1A4D8CAE0028EE7E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		49E57FBA1A4D8CAE0028EE7E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				49E57FBE1A4D8CAE0028EE7E /* libJCHeap.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		49E57FA91A4D8CAE0028EE7E = {
+			isa = PBXGroup;
+			children = (
+				49E57FB41A4D8CAE0028EE7E /* JCHeap */,
+				49E57FC11A4D8CAE0028EE7E /* JCHeapTests */,
+				49E57FB31A4D8CAE0028EE7E /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		49E57FB31A4D8CAE0028EE7E /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				49E57FB21A4D8CAE0028EE7E /* libJCHeap.a */,
+				49E57FBD1A4D8CAE0028EE7E /* JCHeapTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		49E57FB41A4D8CAE0028EE7E /* JCHeap */ = {
+			isa = PBXGroup;
+			children = (
+				49E57FB51A4D8CAE0028EE7E /* JCHeap.h */,
+				49E57FB71A4D8CAE0028EE7E /* JCHeap.m */,
+			);
+			path = JCHeap;
+			sourceTree = "<group>";
+		};
+		49E57FC11A4D8CAE0028EE7E /* JCHeapTests */ = {
+			isa = PBXGroup;
+			children = (
+				49E57FC21A4D8CAE0028EE7E /* Supporting Files */,
+			);
+			path = JCHeapTests;
+			sourceTree = "<group>";
+		};
+		49E57FC21A4D8CAE0028EE7E /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				49E57FC31A4D8CAE0028EE7E /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		49E57FB01A4D8CAE0028EE7E /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				49E57FB61A4D8CAE0028EE7E /* JCHeap.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		49E57FB11A4D8CAE0028EE7E /* JCHeap */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 49E57FC61A4D8CAE0028EE7E /* Build configuration list for PBXNativeTarget "JCHeap" */;
+			buildPhases = (
+				49E57FAE1A4D8CAE0028EE7E /* Sources */,
+				49E57FAF1A4D8CAE0028EE7E /* Frameworks */,
+				49E57FB01A4D8CAE0028EE7E /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = JCHeap;
+			productName = JCHeap;
+			productReference = 49E57FB21A4D8CAE0028EE7E /* libJCHeap.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		49E57FBC1A4D8CAE0028EE7E /* JCHeapTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 49E57FC91A4D8CAE0028EE7E /* Build configuration list for PBXNativeTarget "JCHeapTests" */;
+			buildPhases = (
+				49E57FB91A4D8CAE0028EE7E /* Sources */,
+				49E57FBA1A4D8CAE0028EE7E /* Frameworks */,
+				49E57FBB1A4D8CAE0028EE7E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				49E57FC01A4D8CAE0028EE7E /* PBXTargetDependency */,
+			);
+			name = JCHeapTests;
+			productName = JCHeapTests;
+			productReference = 49E57FBD1A4D8CAE0028EE7E /* JCHeapTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		49E57FAA1A4D8CAE0028EE7E /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0610;
+				ORGANIZATIONNAME = "Jonathan Crooke";
+				TargetAttributes = {
+					49E57FB11A4D8CAE0028EE7E = {
+						CreatedOnToolsVersion = 6.1.1;
+					};
+					49E57FBC1A4D8CAE0028EE7E = {
+						CreatedOnToolsVersion = 6.1.1;
+					};
+				};
+			};
+			buildConfigurationList = 49E57FAD1A4D8CAE0028EE7E /* Build configuration list for PBXProject "JCHeap" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 49E57FA91A4D8CAE0028EE7E;
+			productRefGroup = 49E57FB31A4D8CAE0028EE7E /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				49E57FB11A4D8CAE0028EE7E /* JCHeap */,
+				49E57FBC1A4D8CAE0028EE7E /* JCHeapTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		49E57FBB1A4D8CAE0028EE7E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		49E57FAE1A4D8CAE0028EE7E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				49E57FB81A4D8CAE0028EE7E /* JCHeap.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		49E57FB91A4D8CAE0028EE7E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		49E57FC01A4D8CAE0028EE7E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 49E57FB11A4D8CAE0028EE7E /* JCHeap */;
+			targetProxy = 49E57FBF1A4D8CAE0028EE7E /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		49E57FC41A4D8CAE0028EE7E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		49E57FC51A4D8CAE0028EE7E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		49E57FC71A4D8CAE0028EE7E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				EXECUTABLE_PREFIX = lib;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		49E57FC81A4D8CAE0028EE7E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				EXECUTABLE_PREFIX = lib;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		49E57FCA1A4D8CAE0028EE7E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = JCHeapTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		49E57FCB1A4D8CAE0028EE7E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = JCHeapTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		49E57FAD1A4D8CAE0028EE7E /* Build configuration list for PBXProject "JCHeap" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				49E57FC41A4D8CAE0028EE7E /* Debug */,
+				49E57FC51A4D8CAE0028EE7E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		49E57FC61A4D8CAE0028EE7E /* Build configuration list for PBXNativeTarget "JCHeap" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				49E57FC71A4D8CAE0028EE7E /* Debug */,
+				49E57FC81A4D8CAE0028EE7E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		49E57FC91A4D8CAE0028EE7E /* Build configuration list for PBXNativeTarget "JCHeapTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				49E57FCA1A4D8CAE0028EE7E /* Debug */,
+				49E57FCB1A4D8CAE0028EE7E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 49E57FAA1A4D8CAE0028EE7E /* Project object */;
+}
