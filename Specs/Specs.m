@@ -9,14 +9,57 @@
 #define EXP_SHORTHAND
 #import <Expecta/Expecta.h>
 #import <Specta/Specta.h>
+#import "JCBinaryHeap.h"
 
 SpecBegin(Specs)
 
-describe(@"<#name#>", ^{
+__block JCBinaryHeap *heap = nil;
 
-  it(@"<#should#>", ^{
-  
+before(^{
+	heap = [[JCBinaryHeap alloc] initWithComparator:^NSComparisonResult(NSNumber *l,
+																																			NSNumber *r)
+	{
+		return [l compare:r];
+	}];
+});
+
+it(@"should be empty", ^{
+	expect(heap.count).to.equal(0);
+	expect(heap.isEmpty).to.beTruthy();
+});
+
+describe(@"basic functionality", ^{
+
+	before(^{
+		[heap addObject:@10];
+	});
+	
+  it(@"should add an object", ^{
+		expect(heap.count).to.equal(1);
+		expect(heap.isEmpty).to.beFalsy();
+		expect(heap.allObjects).to.equal(@[@10]);
   });
+	
+	it(@"should pop an object", ^{
+		[heap removeHead];
+		expect(heap.count).to.equal(0);
+		expect(heap.isEmpty).to.beTruthy();
+	});
+	
+	describe(@"larger heap", ^{
+		
+		before(^{
+			[heap addObject:@1];
+			[heap addObject:@100];
+		});
+		
+		it(@"should have expected state", ^{
+			expect(heap.count).to.equal(3);
+			expect(heap.isEmpty).to.beFalsy();
+			expect(heap.allObjects).to.equal(@[@1, @10, @100]);
+		});
+		
+	});
 
 });
 
