@@ -4,7 +4,9 @@
 
 ##What's This?
 
-	CFBinaryHeap implements a container which stores values sorted using a binary search algorithm.  CFBinaryHeaps can be useful as priority queues.
+	CFBinaryHeap implements a container which stores values 
+	sorted using a binary search algorithm.  
+	CFBinaryHeaps can be useful as priority queues.
 	
 Since this type is implemented at the `CF` level, some amount of boiler-plate is always required and many conveniences such as equality, hashing and enumeration are not available. `JCBinaryHeap` provides a Cocoa-style OO-wrapper to make this type as convenient to use as possible, and mirrors the interface of collection classes such as `NSArray` and `NSMutableArray`.
 
