@@ -86,8 +86,15 @@ describe(@"basic functionality", ^{
 			expect(heap.isEmpty).to.beFalsy();
 			expect(heap.allObjects).to.equal(@[@1, @10, @100]);
 		});
-		
-		describe(@"mapping", ^{
+
+		describe(@"membership", ^{
+			it(@"should correct test for membership", ^{
+				expect([heap containsObject:@10]).to.beTruthy();
+				expect([heap containsObject:@3]).to.beFalsy();
+			});
+		});
+
+		describe(@"enumeration", ^{
 			
 			__block NSMutableArray *mapped = nil;
 			
@@ -102,6 +109,20 @@ describe(@"basic functionality", ^{
 				expect(mapped).to.equal(@[@3, @30, @300]);
 			});
 		});
+
+		it(@"NSFastEnumeration", ^{
+			for (NSUInteger i = 0; i < 100; ++i) {
+				NSNumber *rand = @(arc4random() % 20);
+				[heap addObject:rand];
+			}
+
+			NSMutableArray *array = @[].mutableCopy;
+			for (id obj in heap) {
+				[array addObject:obj];
+			}
+
+			expect([array sortedArrayUsingSelector:@selector(compare:)]).to.equal([heap.allObjects sortedArrayUsingSelector:@selector(compare:)]);
+		});
 	});
 });
 
@@ -111,30 +132,16 @@ describe(@"protocols", ^{
 																	comparator:JCBinaryHeapCompareSelectorComparator];
 	});
 	
-	it(@"should create a copy", ^{
+	it(@"NSCopying", ^{
 		JCBinaryHeap *copy = heap.copy;
 		expect(heap.allObjects).to.equal(copy.allObjects);
 		expect(heap.heap == copy.heap).to.beFalsy();
 	});
 	
-	it(@"should serialise", ^{
+	it(@"NSCoding", ^{
 		NSData *data = [NSKeyedArchiver archivedDataWithRootObject:heap];
 		JCBinaryHeap *decoded = [NSKeyedUnarchiver unarchiveObjectWithData:data];
 		expect(decoded).to.equal(heap);
-	});
-	
-	it(@"should enumerate", ^{
-		for (NSUInteger i = 0; i < 100; ++i) {
-			NSNumber *rand = @(arc4random() % 20);
-			[heap addObject:rand];
-		}
-
-		NSMutableArray *array = @[].mutableCopy;
-		for (id obj in heap) {
-			[array addObject:obj];
-		}
-
-		expect([array sortedArrayUsingSelector:@selector(compare:)]).to.equal([heap.allObjects sortedArrayUsingSelector:@selector(compare:)]);
 	});
 });
 
