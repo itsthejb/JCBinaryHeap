@@ -10,6 +10,7 @@
 
 @interface JCBinaryHeap ()
 @property (assign) CFBinaryHeapRef heap;
+@property (assign) NSUInteger rollingHash;
 @property (copy) NSComparator comparator;
 @end
 
@@ -197,17 +198,22 @@ static void _jc_heapEnumerationCallBack(const void *val, void *context) {
 
 #pragma mark Add/remove
 
+- (void) _addObjectInternal:(id) object {
+  CFBinaryHeapAddValue(self.heap, (__bridge const void *)(object));
+  self.rollingHash = self.rollingHash ^ [object hash];
+}
+
 - (void) addObject:(id) object {
   NSParameterAssert(object);
   @synchronized(self) {
-    CFBinaryHeapAddValue(self.heap, (__bridge const void *)(object));
+    [self _addObjectInternal:object];
   }
 }
 
 - (void)addObjectsFromArray:(NSArray *)array {
   @synchronized(self) {
     [array enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-      CFBinaryHeapAddValue(self.heap, (__bridge const void *)(obj));
+      [self _addObjectInternal:obj];
     }];
   }
 }
@@ -240,6 +246,7 @@ static void _jc_heapEnumerationCallBack(const void *val, void *context) {
     id head = [self head];
     if (head) {
       CFBinaryHeapRemoveMinimumValue(self.heap);
+      self.rollingHash ^= [head hash];
     }
     return head;
   }
@@ -248,6 +255,7 @@ static void _jc_heapEnumerationCallBack(const void *val, void *context) {
 - (void)removeAllObjects {
   @synchronized(self) {
     CFBinaryHeapRemoveAllValues(self.heap);
+    self.rollingHash = 0;
   }
 }
 
@@ -305,10 +313,7 @@ static void _jc_heapEnumerationCallBack(const void *val, void *context) {
   return [self.allObjects isEqual:heap.allObjects];
 }
 
-- (NSUInteger)hash {
-  // TODO:
-  return 0;
-}
+- (NSUInteger)hash { return self.rollingHash; }
 
 #pragma mark NSCopying
 

@@ -56,6 +56,34 @@ describe(@"custom initialisers", ^{
   });
 });
 
+describe(@"equality", ^{
+  before(^{
+    heap = [JCBinaryHeap binaryHeapWithArray:@[@3,@6,@3.5]
+                                  comparator:JCBinaryHeapCompareSelectorComparator];
+  });
+
+  it(@"should calculate equality", ^{
+    JCBinaryHeap *heap2 = [JCBinaryHeap binaryHeapWithArray:@[@3,@6,@3.5]
+                                                 comparator:JCBinaryHeapCompareSelectorComparator];
+    expect(heap).equal(heap2);
+  });
+
+  it(@"should calculate inequality", ^{
+    JCBinaryHeap *heap2 = [JCBinaryHeap binaryHeapWithArray:@[@6]
+                                                 comparator:JCBinaryHeapCompareSelectorComparator];
+    expect(heap).notTo.equal(heap2);
+  });
+
+  fit(@"should calculate hash", ^{
+    heap = [JCBinaryHeap binaryHeapWithObject:@"foo" comparator:JCBinaryHeapCompareSelectorComparator];
+    expect(heap.hash).to.equal(519204735);
+    [heap addObject:@"bar"];
+    expect(heap.hash).to.equal(4179847);
+    [heap removeObject];
+    expect(heap.hash).to.equal(519204735);
+  });
+});
+
 describe(@"basic functionality", ^{
 
   before(^{
